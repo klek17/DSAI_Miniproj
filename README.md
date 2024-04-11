@@ -19,12 +19,13 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
     - Cleaning and preparation
     - Basic visualization
     - Exploratory data analysis
-5. BERT_synopsis.ipynb
+5. NLTK_synopsis.ipynb
+    - Cleaning and preparation
+    - Natural Language Processing: Natural Language Toolkit (NLTK)
+6. BERT_synopsis.ipynb
     - Cleaning and preparation
     - Deep Learning: Bidirectional Encoder Representations from Transformers (BERT)
-6. NLTK_synopsis.ipynb
-    - Cleaning and preparation
-    - 
+
 
 ### EDA.ipynb Details
 #### Cleaning and Preparation
@@ -38,15 +39,66 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
 #### Basic Visualization
    a. Used word cloud and bar plot to display most common anime genre
 
+   b. Barplot of average number of episodes, members and score per genre
+
 
 #### Exploratory Data Analysis
    a. Show the breakdown of top 5 genres by gender
 
-   b. Average number of episodes and members per genre
+   b. Boxplot of members by genre
 
-   c. Boxplot of members by genre
+   c. Correlation of 
 
-   d. Average score by genre
+   
+### NLTK_synopsis.ipynb Details
+#### Cleaning and Preparation
+   a. Read csv columns synopsis and genre into a dataframe
+
+   b. Remove rows with no synopsis available
+
+   c. Count the total number of genres
+
+   d. Clean synopsis by removing apostrophes, removing non-alphabetic characters, removing extra spaces, ensuring that words are separated by single spaces and converts the text to lowercase
+
+   
+#### Natural Language Processing (NLTK)
+*1. Removing stopwords*
+
+    stop_words = set(stopwords.words('english'))
+    stop_words.add('source')
+    words = defaultdict(lambda: 0)
+    def rem_stop(text):
+        for i in text.split():
+            new_text = []
+            if i not in stop_words:
+                new_text.append(i)
+                words[i] += 1
+        new_text = [i for i in text.split() if not i in stop_words]
+        return ' '.join(new_text)
+    
+    df.loc[:, 'cleaned_syn'] = df.loc[:, 'cleaned_syn'].apply(rem_stop)
+
+*2. Build a multilabel binarizer using genrelist*
+
+    multilabel_binarizer = MultiLabelBinarizer()
+    multilabel_binarizer.fit(df['genrelist'])
+    y = multilabel_binarizer.transform(df['genrelist'])
+
+*3. Split train test data 80-20 split and initialise TF-IDF vectorizer*
+
+    xtrain, xtest, ytrain, ytest = train_test_split(df['cleaned_syn'], y, test_size=0.2)
+    tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=10000)
+    xtrain_tfidf = tfidf_vectorizer.fit_transform(xtrain)
+    xtest_tfidf = tfidf_vectorizer.transform(xtest)
+
+*4. Train the Logistic Regression classifier and predict on test set*
+
+    model = LogisticRegression()
+    classif = OneVsRestClassifier(model)
+    classif.fit(xtrain_tfidf, ytrain)
+    y_pred = classif.predict(xtest_tfidf)
+    y_pred_prob = classif.predict_proba(xtest_tfidf)
+    y_pred_new = (y_pred_prob >= 0.20).astype(int)
 
 
 ### BERT_synopsis.ipynb Details
@@ -65,7 +117,7 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
     model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=len(all_genres))
     max_length = 512  # determines the maximum number of tokens allowed in a single input sequence
 
-*2. Encode labels based on the lengh of genre_list using one-hot encoding*
+*2. Encode labels based on the length of genre_list using one-hot encoding*
 
     for synopsis, genre_list in zip(df['synopsis'], df['genre_list']):
     tokenized_text = tokenizer.encode_plus(synopsis, add_special_tokens=True, max_length=max_length, padding='max_length', truncation=True)
@@ -149,17 +201,16 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
 *Data Driven Insights*
 - Top 5 genres for both males and females are identical (Comedy, Action, Fantasy, Adventure, Drama)
 - If the genre of anime is Slice-of-life, Shoujo, Comedy, Game or Martial-Arts, the funding required would likely be higher as they have the highest average number of episodes
-- Animes in the mystery, harem, Vampire, Psychological, Thriller would likely draw in the most revenue through merchandise sales as they have the highest average members
+- Animes in the Mystery, Harem, Vampire, Psychological, Thriller would likely draw in the most revenue through merchandise sales as they have the highest average members
 - From the average score of animes, we can see that scores 
 
 
 *Machine Learning Comparisons*
-- Random Forest suggests that numeric variables with relatively high correlation with attrition are useful in predicting attrition
-- Logistic Regression is not recommended as a technique as most categorical variables are irrelevant in determining attrition
-- Neural Network is highly useful in effectively predicting attrition
+- NLTK model consistently produced low accuracy and decent F1 score however showed no room for further improvement as it was a pre-trained model and could not train itself on the data provided
+- BERT model produced consistently higher accuracies but lower F1 scores. However with each epoch, a clear increase in both accuracy and accuracy can be observed, hence showing BERT would be highly useful with further training
+
 
 ### What we have learnt from this project?
-- Using pandas.get_dummies to convert catrgorical variables into indicator variables
-- Logistic Regression model 
-- Justify the suitability of a model based on readings from classification report
-- Neural Network model
+- Natural Language Toolkit
+- Training Bidirectional Encoder Representations from Transformers
+- Analysis of metrics such as accuracy and F1 score
