@@ -47,7 +47,7 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
 
    b. Boxplot of members by genre
 
-   c. Correlation of 
+   c. Correlation of episodes, members and score
 
    
 ### NLTK_synopsis.ipynb Details
@@ -199,10 +199,10 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
 ### Conclusion
 
 *Data Driven Insights*
-- Top 5 genres for both males and females are identical (Comedy, Action, Fantasy, Adventure, Drama)
+- Top 5 genres for both males and females are identical; Comedy, Action, Fantasy, Adventure and Drama
 - If the genre of anime is Slice-of-life, Shoujo, Comedy, Game or Martial-Arts, the funding required would likely be higher as they have the highest average number of episodes
 - Animes in the Mystery, Harem, Vampire, Psychological, Thriller would likely draw in the most revenue through merchandise sales as they have the highest average members
-- From the average score of animes, we can see that scores 
+- From the heatmap we can see that number of episodes, number of members and score do not any correlation except for a slight correlation between number of members and score
 
 
 *Machine Learning Comparisons*
