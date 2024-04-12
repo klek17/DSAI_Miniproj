@@ -49,6 +49,8 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
 
    c. Correlation of episodes, members and score
 
+
+
    
 ### NLTK_synopsis.ipynb Details
 #### Cleaning and Preparation
@@ -99,6 +101,8 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
     y_pred = classif.predict(xtest_tfidf)
     y_pred_prob = classif.predict_proba(xtest_tfidf)
     y_pred_new = (y_pred_prob >= 0.20).astype(int)
+
+
 
 
 ### BERT_synopsis.ipynb Details
@@ -195,6 +199,8 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
             correct_predictions += torch.sum(predicted_labels == labels).item()
             total_predictions += labels.size(0) * labels.size(1)
             all_predicted_labels.extend(predicted_labels.tolist())
+
+
     
 ### Conclusion
 
