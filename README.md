@@ -64,6 +64,13 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
 
    
 #### Natural Language Processing (NLTK)
+
+*Dataset Merging*
+
+    a_reviews=animes.merge(reviews,on='uid')
+    a_rev_prof=a_reviews.merge(profile,on='profile')
+    a_rev_prof
+
 *1. Removing stopwords*
 
     stop_words = set(stopwords.words('english'))
