@@ -2,8 +2,8 @@
 For our mini project in the Introduction to Data Science and Artificial Intelligence module (SC1015), we performed analysis on the Anime Dataset with Reviews - MyAnimeList [dataset](https://www.kaggle.com/datasets/marlesson/myanimelist-dataset-animes-profiles-reviews) from Kaggle. This dataset contains informations about Anime (16k), Reviews (130k) and Profiles (47k) crawled from https://myanimelist.net/ at 05/01/20.
 
 ### Problem Definition
-- Which genre of anime is the most popular and why?
-- As an anime studio, how to tell if an anime is worth producing based off a synopsis
+- Assist anime creators in crafting compelling synopses that attract viewers
+- Analyze relation between synopsis content and genre perception
 
 
 ### Members (FCSD)
