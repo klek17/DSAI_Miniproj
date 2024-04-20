@@ -12,7 +12,7 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
 3. Nigel Tan
 
 ### Files Included
-1. animes.csv - contains list of anime, with title, title synonyms, genre, duration, rank, populatiry, score, airing date, episodes and many other important data about individual anime
+1. animes.csv - contains list of anime, with title, title synonyms, genre, duration, rank, popularity, score, airing date, episodes and many other important data about individual anime
 2. reviews.csv - contains information about reviews users x animes and scores
 3. profiles.csv - contains information about users who watch anime, namely username, birth date, gender, and favorite animes list
 4. EDA.ipynb
@@ -220,7 +220,7 @@ For our mini project in the Introduction to Data Science and Artificial Intellig
 
 *Machine Learning Comparisons*
 - NLTK model consistently produced low accuracy and decent F1 score however showed no room for further improvement as it was a pre-trained model and could not train itself on the data provided
-- BERT model produced consistently higher accuracies but lower F1 scores. However with each epoch, a clear increase in both accuracy and accuracy can be observed, hence showing BERT would be highly useful with further training
+- BERT model produced consistently higher accuracies but lower F1 scores. However a clear increase in both accuracy and accuracy can be observed across the epochs, hence showing BERT would be highly useful with further training
 
 
 ### What we have learnt from this project?
